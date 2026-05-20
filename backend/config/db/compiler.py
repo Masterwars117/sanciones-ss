@@ -1,7 +1,16 @@
 """
 Compilador SQL con paginación ROWNUM para Oracle 10g.
+
+operations.compiler_module apunta aquí; además del SELECT con ROWNUM,
+hay que reexportar los compiladores de escritura que usa Django en save().
 """
-from django.db.models.sql.compiler import SQLCompiler as BaseSQLCompiler
+from django.db.models.sql.compiler import (
+    SQLAggregateCompiler,
+    SQLCompiler as BaseSQLCompiler,
+    SQLDeleteCompiler,
+    SQLInsertCompiler,
+    SQLUpdateCompiler,
+)
 
 
 class SQLCompiler(BaseSQLCompiler):
