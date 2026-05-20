@@ -14,7 +14,6 @@ from .models import (
     CatalogoGenero,
     CatalogoTipoSancion,
     CatalogoMoneda,
-    CatalogoNivelGravedad,
     CatalogoTipoFalta,
     CatalogoTipoDocto,
     Dependencia,
@@ -25,6 +24,14 @@ ESTADOS_CURP = (
     "AS|BC|BS|CC|CL|CM|CS|CH|DF|DG|GT|GR|HG|JC|MC|MN|MS|"
     "NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE"
 )
+
+# CAT_NGRAVEDAD no existe en el esquema INHABIL (Oracle 10g).
+NIVELES_GRAVEDAD_ESTATAL = [
+    {"clave": "L", "descripcion": "Leve"},
+    {"clave": "M", "descripcion": "Media"},
+    {"clave": "G", "descripcion": "Grave"},
+    {"clave": "N", "descripcion": "No aplica"},
+]
 
 
 def parse_date(value):
@@ -793,13 +800,7 @@ def catalogos_estatal(request):
             for item in CatalogoMoneda.objects.values("mon_cve", "mon_descripcion")
         ]
 
-        niveles_gravedad = [
-            {
-                "clave": item["ngrav_cve"],
-                "descripcion": item["ngrav_descripcion"],
-            }
-            for item in CatalogoNivelGravedad.objects.values("ngrav_cve", "ngrav_descripcion")
-        ]
+        niveles_gravedad = list(NIVELES_GRAVEDAD_ESTATAL)
 
         tipos_falta = [
             {

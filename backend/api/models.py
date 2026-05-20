@@ -120,16 +120,6 @@ class CatalogoMoneda(models.Model):
         ordering = ["mon_cve"]
 
 
-class CatalogoNivelGravedad(models.Model):
-    ngrav_cve = models.CharField(db_column="NGRAV_CVE", max_length=1, primary_key=True)
-    ngrav_descripcion = models.CharField(db_column="NGRAV_DESCRIPCION", max_length=50)
-
-    class Meta:
-        db_table = "CAT_NGRAVEDAD"
-        managed = False
-        ordering = ["ngrav_cve"]
-
-
 class CatalogoTipoFalta(models.Model):
     fal_clave = models.CharField(db_column="FAL_CLAVE", max_length=4, primary_key=True)
     fal_descripcion = models.CharField(db_column="FAL_DESCRIPCION", max_length=150)
